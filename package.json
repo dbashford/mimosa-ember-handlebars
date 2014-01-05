@@ -1,0 +1,34 @@
+{
+  "name": "mimosa-ember-handlebars",
+  "version": "1.0.0",
+  "homepage": "https://github.com/dbashford/mimosa-ember-handlebars",
+  "author": "David Bashford",
+  "description": "A Handlebars/Ember client template compiler for Mimosa 2.0+",
+  "contributors": [
+    {
+      "name": "David Bashford",
+      "email": "dbashford@hotmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dbashford/mimosa-ember-handlebars"
+  },
+  "keywords": [
+    "mimosa",
+    "mmodule",
+    "compiler",
+    "ember",
+    "emberjs",
+    "handlebars"
+  ],
+  "dependencies": {
+    "handlebars": "1.2.1",
+    "logmimosa": "0.6.0"
+  },
+  "license": "MIT",
+  "main": "./src",
+  "engines": {
+    "node": ">=0.10"
+  }
+}
