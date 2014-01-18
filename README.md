@@ -25,8 +25,8 @@ This module utilizes all of the built-in template behavior that comes with Mimos
 emberHandlebars:
   lib: undefined
   extensions: ["hbs", "handlebars"]
-  helpers:[\"app/template/handlebars-helpers\"]
-  emberPath: \"vendor/ember\"
+  helpers:["app/template/handlebars-helpers"]
+  emberPath: "vendor/ember"
 ```
 
 * `lib`: You may want to use this module but may not be ready to use the latest version of Handlebars. Using the `lib` property you can provide a specific version of Handlebars if the one being used by this module isn't to your liking. To provide a specific version, you must have it `npm install`ed into your project and then provide it to `lib`. For instance: `lib: require('handlebars')`.
