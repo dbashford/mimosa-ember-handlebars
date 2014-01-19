@@ -76,7 +76,7 @@ var compile = function (mimosaConfig, file, cb) {
   var output, error;
 
   try {
-    output = mimosaConfig.emberHandlebars.lib.precompile( file.inputFileText );
+    output = mimosaConfig.emberHandlebars.handlebars.precompile( file.inputFileText );
     output = "Ember.TEMPLATES['" + file.templateName + "'] = template(" + output.toString() + ")";
   } catch ( err ) {
     error = err;
