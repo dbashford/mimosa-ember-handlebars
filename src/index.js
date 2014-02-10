@@ -2,9 +2,10 @@
 
 var fs = require( 'fs' )
   , path = require( 'path' )
-  , logger = require( 'logmimosa' )
+  , logger = null
   , config = require( './config' )
   , getExtensions = function ( mimosaConfig ) {
+    logger = mimosaConfig.log;
     return mimosaConfig.emberHandlebars.extensions;
   }
   , emberBoilerplate = "var template = Ember.Handlebars.template, templates = {};\n";
@@ -45,7 +46,7 @@ var prefix = function ( mimosaConfig, libraryPath ) {
 
     defineString = defines.join( ',' );
 
-    if ( logger.isDebug ) {
+    if ( logger.isDebug() ) {
       logger.debug( "Define string for Handlebars templates [[ " + defineString + " ]]" );
     }
 
