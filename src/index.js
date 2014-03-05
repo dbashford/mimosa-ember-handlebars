@@ -1,17 +1,17 @@
 "use strict";
 
-var fs = require( 'fs' )
-  , path = require( 'path' )
+var fs = require( "fs" )
+  , path = require( "path" )
   , logger = null
-  , config = require( './config' )
+  , config = require( "./config" )
   , getExtensions = function ( mimosaConfig ) {
     logger = mimosaConfig.log;
     return mimosaConfig.emberHandlebars.extensions;
   }
   , emberBoilerplate = "var template = Ember.Handlebars.template, templates = {};\n";
 
-var prefix = function ( mimosaConfig, libraryPath ) {
-  if ( mimosaConfig.template.wrapType === 'amd' ) {
+var prefix = function ( mimosaConfig ) {
+  if ( mimosaConfig.template.wrapType === "amd" ) {
     logger.debug( "Building Handlebars template file wrapper" );
     var jsDir = path.join( mimosaConfig.watch.sourceDir, mimosaConfig.watch.javascriptDir )
       , possibleHelperPaths = []
@@ -38,21 +38,21 @@ var prefix = function ( mimosaConfig, libraryPath ) {
 
     // build proper define strings for each helper path
     helperPaths.forEach( function( helperPath ) {
-      var helperDefine = helperPath.replace( mimosaConfig.watch.sourceDir, '' )
-        .replace( /\\/g, '/' )
-        .replace( /^\/?\w+\/|\.\w+$/g, '' );
+      var helperDefine = helperPath.replace( mimosaConfig.watch.sourceDir, "" )
+        .replace( /\\/g, "/" )
+        .replace( /^\/?\w+\/|\.\w+$/g, "" );
       defines.push( "'" + helperDefine + "'" );
     });
 
-    defineString = defines.join( ',' );
+    defineString = defines.join( "," );
 
     if ( logger.isDebug() ) {
       logger.debug( "Define string for Handlebars templates [[ " + defineString + " ]]" );
     }
 
-    return "define([" + defineString + "], function (" + (params.join(',')) + "){\n  " + emberBoilerplate;
+    return "define([" + defineString + "], function (" + (params.join(",")) + "){\n  " + emberBoilerplate;
   } else {
-    if ( mimosaConfig.template.wrapType === 'common' ) {
+    if ( mimosaConfig.template.wrapType === "common" ) {
       return "var Ember = require('" + mimosaConfig.template.commonLibPath + "');\n" + emberBoilerplate;
     }
   }
@@ -62,7 +62,7 @@ var prefix = function ( mimosaConfig, libraryPath ) {
 
 
 var suffix = function (config) {
-  if ( config.template.wrapType === 'amd' ) {
+  if ( config.template.wrapType === "amd" ) {
     return "return templates; });";
   } else {
     if ( config.template.wrapType === "common" ) {
