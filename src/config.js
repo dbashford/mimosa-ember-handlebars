@@ -1,5 +1,8 @@
 "use strict";
 
+var fs = require( "fs" )
+  , path = require( "path" );
+
 exports.defaults = function() {
   return {
     emberHandlebars: {
@@ -13,7 +16,6 @@ exports.defaults = function() {
 exports.placeholder = function() {
   return "\t\n\n" +
          "  emberHandlebars:         # config settings for the EmberHandlebars compiler module\n" +
-         "    lib: undefined         # use this property to provide a specific version of Handlebars\n" +
          "    extensions: [\"hbs\", \"handlebars\"]  # default extensions for EmberHandlebars files\n" +
          "    helpers:[\"app/template/handlebars-helpers\"]  # the paths from watch.javascriptDir to\n" +
          "                           # the files containing handlebars helper/partial registrations\n" +
@@ -26,13 +28,6 @@ exports.validate = function( config, validators ) {
 
   if ( validators.ifExistsIsObject( errors, "emberHandlebars config", config.emberHandlebars ) ) {
 
-    if ( !config.emberHandlebars.lib ) {
-      config.emberHandlebars.lib = require( "handlebars" );
-    }
-
-    var ec = require( "./resources/ember-compiler" );
-    config.emberHandlebars.handlebars = ec.makeHandlebars( config.emberHandlebars.lib );
-
     if ( validators.isArrayOfStringsMustExist( errors, "emberHandlebars.extensions", config.emberHandlebars.extensions ) ) {
       if (config.emberHandlebars.extensions.length === 0) {
         errors.push( "emberHandlebars.extensions cannot be an empty array");
@@ -41,7 +36,15 @@ exports.validate = function( config, validators ) {
 
     validators.ifExistsIsArrayOfStrings( errors, "emberHandlebars.helpers", config.emberHandlebars.helpers );
     validators.ifExistsIsString( errors, "emberHandlebars.emberPath", config.emberHandlebars.emberPath );
+  }
 
+  if ( errors.length === 0 ) {
+    var possibleLocalEmberCompiler = path.join( config.root, "node_modules", "ember-template-compiler" );
+    if ( fs.existsSync( possibleLocalEmberCompiler ) ) {
+      config.emberHandlebars.precompile = require( possibleLocalEmberCompiler ).precompile;
+    } else {
+      config.emberHandlebars.precompile = require( "ember-template-compiler" ).precompile;
+    }
   }
 
   return errors;

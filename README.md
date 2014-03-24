@@ -19,17 +19,24 @@ This module will compile Ember Handlebars files during `mimosa watch` and `mimos
 
 This module utilizes all of the built-in template behavior that comes with Mimosa's basic template compiler.  See the [mimosa website](http://mimosa.io/compilers.html#mt) for more information about how templates are treated or check out the various [`template` configuration options](http://mimosa.io/configuration.html#templates).
 
+This module wraps the [ember-template-compiler](https://github.com/toranb/ember-template-compiler).
+
 ## Default Config
 
 ```coffeescript
 emberHandlebars:
-  lib: undefined
   extensions: ["hbs", "handlebars"]
   helpers:["app/template/handlebars-helpers"]
   emberPath: "vendor/ember"
 ```
 
-* `lib`: You may want to use this module but may not be ready to use the latest version of Handlebars. Using the `lib` property you can provide a specific version of Handlebars if the one being used by this module isn't to your liking. To provide a specific version, you must have it `npm install`ed into your project and then provide it to `lib`. For instance: `lib: require('handlebars')`.
 * `extensions`: an array of strings, the extensions of your Handlebars files.
 * `helpers`: an array of strings, the paths from `watch.javascriptDir` to the files containing handlebars helper/partial registrations
 * `emberPath`: AMD path for the Ember library, this is used as a dependency in the compiled templates.
+
+## Using specific Handlebars or Ember Template Compiler
+
+Important: To use specific versions of Handlebars or ember-template-compiler, you MUST have this module installed in project scope (inside your project's `node_modules` directory). This module cannot be installed in either the `npm -g` or `mimosa mod:install` scope.
+
+* `npm install` a specific handlebars version into your project and this module will use it.
+* `npm install ember-template-compiler` into your project and this module will use it.
