@@ -35,8 +35,5 @@ emberHandlebars:
 * `emberPath`: AMD path for the Ember library, this is used as a dependency in the compiled templates.
 
 ## Using specific Handlebars or Ember Template Compiler
-
-Important: To use specific versions of Handlebars or ember-template-compiler, you MUST have this module installed in project scope (inside your project's `node_modules` directory). This module cannot be installed in either the `npm -g` or `mimosa mod:install` scope.
-
-* `npm install` a specific handlebars version into your project and this module will use it.
-* `npm install ember-template-compiler` into your project and this module will use it.
+* `npm install handlebars@` a specific handlebars version into your project and this module will use it.
+* `npm install ember-template-compiler@` a specific version into your project and this module will use it.
